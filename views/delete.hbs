@@ -44,21 +44,21 @@
             </header>
             <main>
                 <h1>Welcome to KingUni Wiki!</h1>
-                <div class="spacer">
-                    <h2>{{article.title}}
-                            {{#if author}}
-                        <div class="controls">
-                            <a href="/edit/{{article._id}}">[edit]</a>
-                            <a href="/delete/{{article._id}}">[delete]</a>
-                        </div>
-                            {{/if}}
+                <section>
+                    <h2>Are you sure you want to delete this article?
                     </h2>
-                    <article>
-                        {{#each paragraph}}
-                            <p>{{p}}</p>
-                        {{/each}}
-                    </article>
-                </div>
+                    <div class="spacer">
+                        <form action="/delete/{{article._id}}" method="POST">
+                            <label>Article title</label>
+                            <h3>{{article.title}}</h3>
+                            <label for="content">Content</label>
+                            <textarea id="content" name="content">
+                                {{article.content}}
+                            </textarea>
+                            <input type="submit" value="CLICK HERE TO DELETE">
+                        </form>
+                    </div>
+                </section>
             </main>
             <footer>
                 KingUni Wiki &copy; 2020

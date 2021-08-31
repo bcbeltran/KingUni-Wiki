@@ -3,47 +3,55 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Wiki</title>
-    <link rel="stylesheet" href="css/site.css">
+    <title>KingUni-Wiki</title>
+    <link rel="stylesheet" href="/css/site.css">
 </head>
 
 <body>
     <div>
         <aside>
             <div class="center">
-                <img class="logo" src="img/logo.png" alt="logo">
+                <img class="logo" src="/img/logo.png" alt="logo">
             </div>
 
             <nav>
-                <a href="index.html">Main Page</a>
-                <a href="all-articles.html">All Articles</a>
-                <form>
-                    <input type="text">
+                {{#if user}}
+                <a href="/home">Main Page</a>
+                {{else}}
+                <a href="/">Main Page</a>
+                {{/if}}
+                <a href="/articles/all">All Articles</a>
+                <form action="/search" method="GET">
+                    <input type="text" name="search">
                     <input type="submit" value="Search">
                 </form>
-                <a href="create.html">Create New Article</a>
+                {{#if user}}
+                <a href="/create">Create New Article</a>
+                {{else}}
+                <a href="/register">Create New Article</a>
+                {{/if}}
             </nav>
         </aside>
         <div id="container">
             <header>
-                <a href="login.html">Login</a>
-                <a href="register.html">Register</a>
-                <span>Welcome, Bob!</span>
-                <a href="#">[Logout]</a>
+                <span>Welcome {{user.username}}!</span>
+                <a href="/logout">Logout</a>
             </header>
             <main>
                 <h1>Welcome to KingUni Wiki!</h1>
+                {{#if notLongEnough}}
 				<section id="notifications">
 				<p>Article description should be at least 20 characters long...</p>
 				</section>
+                {{/if}}
                 <section>
                     <h2>Create new article</h2>
                     <div class="spacer">
-                        <form>
-                            <label>Article title</label>
-                            <input type="text" class="title">
-                            <label>Content</label>
-                            <textarea></textarea>
+                        <form action="/create" method="POST">
+                            <label for="title">Article title</label>
+                            <input type="text" class="title" id="title" name="title">
+                            <label for="content">Content</label>
+                            <textarea id="content" name="content"></textarea>
                             <input type="submit" value="Submit">
                         </form>
                     </div>

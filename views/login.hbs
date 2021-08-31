@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Wiki</title>
+    <title>KingUni-Wiki</title>
     <link rel="stylesheet" href="css/site.css">
 </head>
 
@@ -15,32 +15,34 @@
             </div>
 
             <nav>
-                <a href="index.html">Main Page</a>
-                <a href="all-articles.html">All Articles</a>
-                <form>
-                    <input type="text">
+                <a href="/">Main Page</a>
+                <a href="/articles/all">All Articles</a>
+                <form action="/search" method="GET">
+                    <input type="text" name="search">
                     <input type="submit" value="Search">
                 </form>
-                <a href="create.html">Create New Article</a>
             </nav>
         </aside>
         <div id="container">
             <header>
-                <a href="login.html">Login</a>
-                <a href="register.html">Register</a>
-                <span>Welcome, Bob!</span>
-                <a href="#">[Logout]</a>
+                <a href="/login">Login</a>
+                <a href="/register">Register</a>
             </header>
             <main>
                 <h1>Welcome to KingUni Wiki!</h1>
+                {{#if err}}
+				<section id="notifications">
+				<p>Username or password is incorrect</p>
+				</section>
+                {{/if}}
                 <section>
                     <h2>Login</h2>
                     <div class="spacer">
-                        <form>
-                            <label>Username:</label>
-                            <input type="text">
-                            <label>Password:</label>
-                            <input type="password">
+                        <form action="/login" method="POST">
+                            <label for="username">Username:</label>
+                            <input type="text" id="username" name="username">
+                            <label for="password">Password:</label>
+                            <input type="password" id="password" name="password">
                             <input type="submit" value="Login">
                         </form>
                     </div>

@@ -3,50 +3,64 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Wiki</title>
-    <link rel="stylesheet" href="css/site.css">
+    <title>KingUni-Wiki</title>
+    <link rel="stylesheet" href="/css/site.css">
 </head>
 
 <body>
     <div>
         <aside>
             <div class="center">
-                <img class="logo" src="img/logo.png" alt="logo">
+                <img class="logo" src="/img/logo.png" alt="logo">
             </div>
 
             <nav>
-                <a href="index.html">Main Page</a>
-                <a href="article.html">Latest Article</a>
-                <a href="all-articles.html">All Articles</a>
-                <form>
-                    <input type="text">
+                {{#if user}}
+                <a href="/home">Main Page</a>
+                {{else}}
+                <a href="/">Main Page</a>
+                {{/if}}
+                <a href="/articles/all">All Articles</a>
+                <form action="/search" method="GET">
+                    <input type="text" name="search">
                     <input type="submit" value="Search">
                 </form>
-                <a href="create.html">Create New Article</a>
+                {{#if user}}
+                <a href="/create">Create New Article</a>
+                {{else}}
+                <a href="/register">Create New Article</a>
+                {{/if}}
             </nav>
         </aside>
         <div id="container">
             <header>
-                <a href="login.html">Login</a>
-                <a href="register.html">Register</a>
-                <span>Welcome, Bob!</span>
-                <a href="#">[Logout]</a>
+                {{#if user}}
+                <span>Welcome, {{user.username}}!</span>
+                <a href="/logout">Logout</a>
+                {{else}}
+                <a href="/login">Login</a>
+                <a href="/register">Register</a>
+                {{/if}}
             </header>
             <main>
                 <h1>Welcome to KingUni Wiki!</h1>
                 <section>
-                    <h2>Search results for: "planet"</h2>
+                    <h2>Search results for: "{{search}}"</h2>
                     <div class="spacer">
                         <ul>
+                            {{#if noArticles}}
                             <li>
-                                <a href="article.html">Planet</a>
+                                <h3>There are 0 results for your search.</h3>
                             </li>
+                            {{else}}
+                            {{#each newArticle}}
                             <li>
-                                <a href="article.html">Planet Of The Apes</a>
+                                <a href="/article/{{_id}}">{{title}}</a>
+                                <br><br>
+                                <p style="font-size: medium;">{{content}}</p>
                             </li>
-                            <li>
-                                <a href="article.html">Planet X</a>
-                            </li>
+                            {{/each}}
+                            {{/if}}
                         </ul>
                     </div>
                 </section>

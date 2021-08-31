@@ -4,61 +4,49 @@
 <head>
     <meta charset="UTF-8">
     <title>KingUni-Wiki</title>
-    <link rel="stylesheet" href="/css/site.css">
+    <link rel="stylesheet" href="css/site.css">
 </head>
 
 <body>
     <div>
         <aside>
             <div class="center">
-                <img class="logo" src="/img/logo.png" alt="logo">
+                <img class="logo" src="img/logo.png" alt="logo">
             </div>
 
             <nav>
-                {{#if user}}
                 <a href="/home">Main Page</a>
-                {{else}}
-                <a href="/">Main Page</a>
-                {{/if}}
                 <a href="/articles/all">All Articles</a>
                 <form action="/search" method="GET">
                     <input type="text" name="search">
                     <input type="submit" value="Search">
                 </form>
-                {{#if user}}
                 <a href="/create">Create New Article</a>
-                {{else}}
-                <a href="/register">Create New Article</a>
-                {{/if}}
             </nav>
         </aside>
         <div id="container">
-            <header>
                 {{#if user}}
+            <header>
                 <span>Welcome, {{user.username}}!</span>
                 <a href="/logout">Logout</a>
-                {{else}}
-                <a href="/login">Login</a>
-                <a href="/register">Register</a>
-                {{/if}}
             </header>
+                {{/if}}
             <main>
                 <h1>Welcome to KingUni Wiki!</h1>
-                <div class="spacer">
-                    <h2>{{article.title}}
-                            {{#if author}}
-                        <div class="controls">
-                            <a href="/edit/{{article._id}}">[edit]</a>
-                            <a href="/delete/{{article._id}}">[delete]</a>
-                        </div>
-                            {{/if}}
-                    </h2>
+                <section id="featured">
+                    <h2>Latests articles</h2>
+                    {{#each articles}}
                     <article>
-                        {{#each paragraph}}
-                            <p>{{p}}</p>
-                        {{/each}}
+                        <h3>{{title}}</h3>
+                        <p>
+                            {{content}}
+                        </p>
+                        <div class="controls">
+                            <a href="/article/{{_id}}">Read more</a>
+                        </div>
                     </article>
-                </div>
+            {{/each}}
+                </section>
             </main>
             <footer>
                 KingUni Wiki &copy; 2020
